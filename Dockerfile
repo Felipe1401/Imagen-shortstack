@@ -15,7 +15,7 @@ LABEL about.license="GNU-3.0"
 ################## MAINTAINER ######################
 MAINTAINER Felipe Gómez <feliubkn@gmail.com>
 ################## INSTALLATION ######################
-RUN conda create --name ShortStack4 shortstack 
+RUN conda create --name ShortStack4 Shortstack 
 RUN conda activate ShortStack4
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
