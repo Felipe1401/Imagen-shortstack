@@ -36,7 +36,7 @@ RUN yum -y install gd
 
 #install RNAfold
 ADD https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_5_x/ViennaRNA-2.5.1.tar.gz /
-RUN tar xvf ViennaRNA-2.5.1.tar.gz && cd ViennaRNA-2.5.1 && ./configure && make && \
+RUN tar zxvf ViennaRNA-2.5.1.tar.gz && cd ViennaRNA-2.5.1 && ./configure && make && \
 make install
 
 #install bowtie
