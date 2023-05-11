@@ -1,5 +1,6 @@
 ################# BASE IMAGE #####################
 FROM continuumio/miniconda3:4.10.3
+
 ################## METADATA #######################
 LABEL base_image="continuumio/miniconda3"
 LABEL version="4.0.1"
@@ -14,6 +15,9 @@ LABEL about.license="GNU-3.0"
 ################## MAINTAINER ######################
 MAINTAINER Felipe Gómez <feliubkn@gmail.com>
 ################## INSTALLATION ######################
+RUN conda create --name ShortStack4 shortstack 
+RUN conda activate ShortStack4
+
 #RUN apt-get update && apt-get install -y git build-essential libboost-all-dev python2.7
 #RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 #RUN python2.7 get-pip.py
