@@ -2,6 +2,13 @@ FROM centos:7
 
 MAINTAINER Mike Axtell mja18@psu.edu
 
+################## INSTALLATION ######################
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+   python3-pip python3-setuptools python3-wheel \
+   wget \
+   ca-certificates
+
 #install make
 RUN yum -y install make
 
