@@ -1,40 +1,49 @@
-################# BASE IMAGE #####################
-FROM continuumio/miniconda3:4.10.3
+FROM centos:7
 
-################## METADATA #######################
-LABEL base_image="continuumio/miniconda3"
-LABEL version="4.0.1"
-LABEL software="shortstack"
-LABEL software.version="1"
-LABEL about.summary="Container image containing all requirements for SALSA"
-LABEL about.home="https://github.com/Felipe1401/"
-LABEL about.documentation="https://github.com/Felipe1401/Imagen-shortstack/README.md"
-LABEL about.license_file="https://github.com/Felipe1401/Imagen-shortstack/LICENSE.txt"
-LABEL about.license="GNU-3.0"
+MAINTAINER Mike Axtell mja18@psu.edu
 
-################## MAINTAINER ######################
-MAINTAINER Felipe Gómez <feliubkn@gmail.com>
-################## INSTALLATION ######################
-#RUN conda create --name ShortStack4 shortstack 
-#RUN conda activate ShortStack4
+#install make
+RUN yum -y install make
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
-ENV PATH /miniconda/bin:$PATH
+#install gcc and gcc-c++
+RUN yum -y install gcc gcc-c++
 
-COPY environment-Imagen-Shortstack.yml /
-RUN conda env create -n shortstack -f /environment-Imagen-Shortstack.yml && conda clean -a
-ENV PATH /miniconda/envs/shortstack/bin:$PATH
+#install unzip and bzip2
+RUN yum -y install unzip bzip2
 
+# install zlib
+ADD http://zlib.net/zlib-1.2.8.tar.gz /
+RUN tar xvf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure && make && \
+make install
 
+#install curses
+ADD http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.4.tar.gz /
+RUN tar xvf ncurses-5.4.tar.gz && cd ncurses-5.4 && ./configure && make && \
+make install
 
-#RUN apt-get update && apt-get install -y git build-essential libboost-all-dev python2.7
-#RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-#RUN python2.7 get-pip.py
-#RUN pip2 install networkx
-#RUN mkdir /opt/salsa 
-#RUN cd /opt/salsa/ && git clone https://github.com/marbl/SALSA.git && cd SALSA && make
-#RUN ln -s /opt/salsa/SALSA/run_pipeline.py /opt/salsa/SALSA/salsa
-#ENV PATH /opt/salsa/SALSA/:$PATH
+# download and install samtools
+ADD https://github.com/samtools/samtools/releases/download/1.2/samtools-1.2.tar.bz2 /
+RUN tar xvf samtools-1.2.tar.bz2 && cd samtools-1.2 && make && make install
 
-###
+#install perl
+RUN yum -y install perl-5.16.3
+
+#install csh
+RUN yum -y install csh
+
+#install gd
+RUN yum -y install gd
+
+#install RNAfold
+ADD http://www.tbi.univie.ac.at/RNA/download.php?id=viennarna-2.1.9-x86_64-rpm viennarna-2.1.9.rpm
+RUN rpm -Uvh viennarna-2.1.9.rpm
+
+#install bowtie
+ADD http://downloads.sourceforge.net/project/bowtie-bio/bowtie/1.1.1/bowtie-1.1.1-linux-x86_64.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fbowtie-bio%2Ffiles%2Fbowtie%2F1.1.1%2F&ts=1440521017&use_mirror=skylineservers bowtie-1.1.1.zip
+RUN unzip bowtie-1.1.1.zip
+ENV PATH /bowtie-1.1.1:$PATH
+
+#install latest ShortStack from github
+ADD https://raw.githubusercontent.com/MikeAxtell/ShortStack/master/ShortStack /usr/bin/ShortStack
+
+RUN chmod 755 /usr/bin/ShortStack
