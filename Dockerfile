@@ -18,6 +18,16 @@ MAINTAINER Felipe Gómez <feliubkn@gmail.com>
 RUN conda create --name ShortStack4 shortstack 
 RUN conda activate ShortStack4
 
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
+ENV PATH /miniconda/bin:$PATH
+
+COPY environment-Imagen-Shortstack.yml /
+RUN conda env create -n shortstack -f /environment-Imagen-Shortstack.yml && conda clean -a
+ENV PATH /miniconda/envs/shortstack/bin:$PATH
+
+
+
 #RUN apt-get update && apt-get install -y git build-essential libboost-all-dev python2.7
 #RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 #RUN python2.7 get-pip.py
