@@ -35,8 +35,9 @@ RUN yum -y install csh
 RUN yum -y install gd
 
 #install RNAfold
-ADD http://www.tbi.univie.ac.at/RNA/download.php?id=viennarna-2.1.9-x86_64-rpm viennarna-2.1.9.rpm
-RUN rpm -Uvh viennarna-2.1.9.rpm
+ADD https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_5_x/ViennaRNA-2.5.1.tar.gz /
+RUN tar xvf ViennaRNA-2.5.1.tar.gz && cd ViennaRNA-2.5.1 && ./configure && make && \
+make install
 
 #install bowtie
 ADD http://downloads.sourceforge.net/project/bowtie-bio/bowtie/1.1.1/bowtie-1.1.1-linux-x86_64.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fbowtie-bio%2Ffiles%2Fbowtie%2F1.1.1%2F&ts=1440521017&use_mirror=skylineservers bowtie-1.1.1.zip
