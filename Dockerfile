@@ -4,7 +4,7 @@ FROM continuumio/miniconda3:4.10.3
 ################## METADATA #######################
 LABEL base_image="continuumio/miniconda3"
 LABEL version="4.0.1"
-LABEL software="ShortStack"
+LABEL software="shortstack"
 LABEL software.version="1"
 LABEL about.summary="Container image containing all requirements for SALSA"
 LABEL about.home="https://github.com/Felipe1401/"
@@ -15,8 +15,8 @@ LABEL about.license="GNU-3.0"
 ################## MAINTAINER ######################
 MAINTAINER Felipe Gómez <feliubkn@gmail.com>
 ################## INSTALLATION ######################
-RUN conda create --name ShortStack4 Shortstack 
-RUN conda activate ShortStack4
+#RUN conda create --name ShortStack4 shortstack 
+#RUN conda activate ShortStack4
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
