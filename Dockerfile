@@ -13,7 +13,7 @@ RUN yum -y install unzip bzip2
 
 # install zlib
 ADD http://zlib.net/zlib-1.2.13.tar.gz /
-RUN tar xvf zlib-1.2.13.tar.gz && cd zlib-1.2.13 && ./configure && make && \
+RUN tar zxvf zlib-1.2.13.tar.gz && cd zlib-1.2.13 && ./configure && make && \
 make install
 
 #install curses
