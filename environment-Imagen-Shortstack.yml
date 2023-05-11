@@ -1,0 +1,7 @@
+name: Imagen-Shortstack
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - shortstack
